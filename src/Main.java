@@ -40,46 +40,31 @@ public class Main {
 
             switch (CommandsData.valueOf(commandStrUser)) {
                 case ADD: {
-                    System.out.println("Введите тип животного (CAT, DOG, DUCK):");
-                    String animalTypeInput = scanner.next().trim().toUpperCase();
 
-                    try {
-                        AnimalTypesData animalType = AnimalTypesData.valueOf(animalTypeInput);
-                        FactoryAnimal factoryAnimal = new FactoryAnimal();
-                        AbsAnimal animal = factoryAnimal.create(animalType);
+                    String animalTypeInput = inputHandler.getValidEnum("Введите тип животного (CAT, DOG, DUCK):", new String[]{"CAT", "DOG", "DUCK"});
+                    AnimalTypesData animalType = AnimalTypesData.valueOf(animalTypeInput);
+                    FactoryAnimal factoryAnimal = new FactoryAnimal();
+                    AbsAnimal animal = factoryAnimal.create(animalType);
 
-                        String name = inputHandler.getString("Введите имя:");
-                        int age = inputHandler.getPositiveInt("Введите возраст:");
-                        int weight = inputHandler.getPositiveInt("Введите вес:");
+                    String name = inputHandler.getString("Введите имя:");
 
-                        System.out.println("Введите цвет (RED, BLUE, GREEN, BROWN):");
-                        String colorName = scanner.next().trim().toUpperCase();
+                    int age = inputHandler.getPositiveInt("Введите возраст (положительное число):");
 
-                        boolean isValidColor = false;
-                        for (ColorData color : ColorData.values()) {
-                            if (color.name().equals(colorName)) {
-                                animal.setColor(color);
-                                isValidColor = true;
-                                break;
-                            }
-                        }
+                    int weight = inputHandler.getPositiveInt("Введите вес (положительное число):");
 
-                        if (!isValidColor) {
-                            System.out.println("Некорректный цвет! Используйте один из доступных цветов.");
-                            continue;
-                        }
+                    String colorName = inputHandler.getValidEnum(
+                            "Введите цвет (RED, BLUE, GREEN, BROWN):",
+                            new String[]{"RED", "BLUE", "GREEN", "BROWN"});
+                    ColorData color = ColorData.valueOf(colorName);
 
-                        animal.setName(name);
-                        animal.setAge(age);
-                        animal.setWeight(weight);
 
-                        animals.add(animal);
-                        animal.say();
+                    animal.setName(name);
+                    animal.setAge(age);
+                    animal.setWeight(weight);
+                    animal.setColor(color);
 
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Некорректный тип животного! Попробуйте снова.");
-                        continue;
-                    }
+                    animals.add(animal);
+                    animal.say();
                     break;
                 }
                 case LIST: {

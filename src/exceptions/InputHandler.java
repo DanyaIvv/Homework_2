@@ -27,9 +27,21 @@ public class InputHandler {
         }
     }
 
-
     public String getString(String prompt) {
         System.out.println(prompt);
         return scanner.next().trim();
+    }
+
+    public String getValidEnum(String prompt, String[] validValues) {
+        while (true) {
+            System.out.println(prompt);
+            String input = scanner.next().trim().toUpperCase();
+            for (String value : validValues) {
+                if (value.equals(input)) {
+                    return input;
+                }
+            }
+            System.out.println("Ошибка! Введите одно из следующих значений: " + String.join(", ", validValues));
+        }
     }
 }
