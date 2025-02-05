@@ -5,7 +5,7 @@ untitled.
 target/
 pom.xml
 untitled.iml
-src/test
 src/main/resources/sql.properties
+src/test
 ### Mac OS ###
 .DS_Store
