@@ -1,0 +1,11 @@
+### IntelliJ IDEA ###
+out/
+.idea/
+untitled.
+target/
+pom.xml
+untitled.iml
+src/test
+src/main/resources/sql.properties
+### Mac OS ###
+.DS_Store
