@@ -15,6 +15,7 @@ public class InputHandler {
             System.out.println(prompt);
             try {
                 value = scanner.nextInt();
+                scanner.nextLine();
                 if (value > 0) {
                     return value;
                 } else {
@@ -28,9 +29,16 @@ public class InputHandler {
     }
 
     public String getString(String prompt) {
-        System.out.println(prompt);
-        return scanner.next().trim();
+        while (true) {
+            System.out.println(prompt);
+            String input = scanner.nextLine().trim();
+            if (!input.isEmpty()) {
+                return input;
+            }
+            System.out.println("Ошибка! Поле не может быть пустым. Попробуйте еще раз.");
+        }
     }
+
 
     public String getValidEnum(String prompt, String[] validValues) {
         while (true) {

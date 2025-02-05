@@ -2,19 +2,25 @@ import animals.AbsAnimal;
 import data.ColorData;
 import data.CommandsData;
 import data.AnimalTypesData;
+import db.dbconnector.IDBConnector;
+import db.dbconnector.MysqlDbConnector;
 import exceptions.InputHandler;
 import factory.FactoryAnimal;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         InputHandler inputHandler = new InputHandler(scanner);
         List<AbsAnimal> animals = new ArrayList<>();
         CommandsData[] commandsData = CommandsData.values();
+
+        IDBConnector idbConnector = new MysqlDbConnector();
+
 
         List<String> commandsNames = new ArrayList<>();
         for (CommandsData commandData : commandsData) {
@@ -38,6 +44,7 @@ public class Main {
                 continue;
             }
 
+            try{
             switch (CommandsData.valueOf(commandStrUser)) {
                 case ADD: {
 
@@ -79,6 +86,10 @@ public class Main {
                     System.out.println("Выход из программы. До свидания!");
                     System.exit(0);
                 }
+            }
+
+        } finally {
+                idbConnector.close();
             }
         }
     }

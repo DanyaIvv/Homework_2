@@ -1,6 +1,7 @@
 ### IntelliJ IDEA ###
 out/
 .idea/
-untitled.iml
+untitled.
+/src/main/resources/sql.properties
 ### Mac OS ###
 .DS_Store
